@@ -52,7 +52,7 @@ export class Sudoku {
     //check whether a given number already exists within the same row, column, and block
     moveChecker(num, yCoord, xCoord) {
       let boardFormat = this.boardFormat;
-      if(num.isNan()){
+      if(isNaN(num)){
         return false;
       }
       //check the row

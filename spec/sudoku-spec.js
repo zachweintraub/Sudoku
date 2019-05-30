@@ -31,6 +31,19 @@ describe('Sudoku', function() {
         expect(reusableSudokuSolver.boardFormat).toEqual(expectedArray);
     });
 
+    it('should test if user input is valid', function() {
+        var userInput = new Sudoku('136789210189234675427015398213597806695841732874326950958472163361958427042163589');
+        expect(userInput.moveChecker(4,0,8)).toEqual(true);
+    });
 
+    it('should test if user input is invalid (NaN)', function() {
+        var userInput = new Sudoku('136789210189234675427015398213597806695841732874326950958472163361958427042163589');
+        expect(userInput.moveChecker('x',0,8)).toEqual(false);
+    });
+
+    it('should test if user input is invalid', function() {
+        var userInput = new Sudoku('136789210189234675427015398213597806695841732874326950958472163361958427042163589');
+        expect(userInput.moveChecker(7,0,8)).toEqual(false);
+    });
     
 })
