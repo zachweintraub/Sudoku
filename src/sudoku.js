@@ -1,14 +1,14 @@
 export class Sudoku {
     constructor(string) {
-        this.allNums = string;
-        this.boardFormat = this.makeSudoku();
+        this.allNums = new String(string);
     }
 
     //convert a string of 81 single-digit integers into a sudoku grid
     makeSudoku(){
-        var sudoku = [];
+      let string = this.allNums;
+      var sudoku = [];
       for(let i = 0; i < 81; i+=9){
-          sudoku.push(this.allNums.substring(i, i+9).split('').map(x=>parseInt(x)));
+        sudoku.push(string.substring(i, i+9).split('').map(x=>parseInt(x)));
       }
       return sudoku;
     }
@@ -18,8 +18,8 @@ export class Sudoku {
       function getSum(total, num) {
         return total += num;
       }
-        const goal = 45;
-        let sudoku = this.boardFormat;
+      const goal = 45;
+      let sudoku = this.makeSudoku();
       for(let i = 0; i<9; i++){
           if(sudoku[i].reduce(getSum) != goal){
             return false;
@@ -39,7 +39,6 @@ export class Sudoku {
             let sum = 0;
           for(let k = 0; k < 3; k++){
               sum += sudoku[j+k].slice(i, i+3).reduce(getSum);
-            console.log(sudoku[j+k].slice(i, i+3));
           }
           if(sum != goal){
               return false;
@@ -51,7 +50,7 @@ export class Sudoku {
 
     //check whether a given number already exists within the same row, column, and block
     moveChecker(num, yCoord, xCoord) {
-      let boardFormat = this.boardFormat;
+      let boardFormat = this.makeSudoku(this.allNums);
       if(isNaN(num)){
         return false;
       }
@@ -168,5 +167,57 @@ export class Sudoku {
         }
       }
       return true;
+    }
+
+    solveSudoku(){
+
+      //generates a possible correct number for a given field
+      let fillBlank = (x, y) => {
+        let move = false;
+        let testNum = sudoku[y][x] + 1;
+        while(!move && testNum < 10){
+          move = this.moveChecker(testNum, y, x);
+          if(!move){
+            testNum++;
+          }
+        }
+        return testNum;
+      }
+      //generates array of blank fields
+      let getBlanks = (string) => {
+        let zeros = [];
+        for(let i = 0; i < string.length; i++){
+          if(string[i] == 0){
+            let newCoord = new Object();
+            newCoord.y = Math.floor(i/9);
+            newCoord.x = i % 9;
+            newCoord.index = i;
+            zeros.push(newCoord);
+          }
+        }
+        return zeros;
+      }
+      let allNums = this.allNums;
+      let sudoku = this.makeSudoku(allNums);
+      let zeros = getBlanks(allNums);
+      let i = 0;
+      while(i < zeros.length && i > -1){
+        let fillNum = fillBlank(zeros[i].x, zeros[i].y);
+        if(fillNum < 10){
+          sudoku[zeros[i].y][zeros[i].x] = fillNum;
+          i++;
+        } else {
+          i--;
+        }
+      }
+      let output = sudoku.flat().join('');
+      console.log(output);
+      console.log(this.sudokuChecker(output));
+      let solvedSudoku = new Sudoku(output);
+      if(solvedSudoku.sudokuChecker()){
+        return output;
+      } else {
+        return false;
+      }
     }
 }

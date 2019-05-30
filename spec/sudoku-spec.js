@@ -9,11 +9,11 @@ describe('Sudoku', function() {
 
     it('should test if user solution is not valid', function() {
         var userSudokuSolver = new Sudoku('136789214189234675427615398213597846695841732874326951958472163361958427742163589');
-        expect(userSudokuSolver.sudokuChecker()).toEqual(false);
+        expect(userSudokuSolver.sudokuChecker(this.allNums)).toEqual(false);
     });
 
     it('should test if user solution is valid', function() {
-        expect(reusableSudokuSolver.sudokuChecker()).toEqual(true);
+        expect(reusableSudokuSolver.sudokuChecker(this.allNums)).toEqual(true);
     });
 
     it('should test if function creates an array', function() {
@@ -28,7 +28,7 @@ describe('Sudoku', function() {
         [3, 6, 1, 9, 5, 8, 4, 2, 7],
         [7, 4, 2, 1, 6, 3, 5, 8, 9]
         ]
-        expect(reusableSudokuSolver.boardFormat).toEqual(expectedArray);
+        expect(reusableSudokuSolver.makeSudoku(this.allNums)).toEqual(expectedArray);
     });
 
     it('should test if user input is valid', function() {
@@ -44,6 +44,11 @@ describe('Sudoku', function() {
     it('should test if user input is invalid', function() {
         var userInput = new Sudoku('136789210189234675427015398213597806695841732874326950958472163361958427042163589');
         expect(userInput.moveChecker(7,0,8)).toEqual(false);
+    });
+
+    it('should test if solveSudoku returns valid string', function() {
+        var userInput = new Sudoku('506789214189234075427615390213597846690841732874026951908472163361958427742160589');
+        expect(userInput.solveSudoku()).toEqual('536789214189234675427615398213597846695841732874326951958472163361958427742163589');
     });
     
 })
