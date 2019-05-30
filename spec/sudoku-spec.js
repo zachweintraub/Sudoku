@@ -1,7 +1,7 @@
-import Sudoku from './../src/sudoku.js';
+import { Sudoku } from './../src/sudoku.js';
 
 describe('Sudoku', function() {
-    // console.log(Sudoku);
+    console.log(Sudoku);
     var reusableSudokuChecker;
 
     beforeEach(function() {
@@ -24,10 +24,7 @@ describe('Sudoku', function() {
         [3, 6, 1, 9, 5, 8, 4, 2, 7],
         [7, 4, 2, 1, 6, 3, 5, 8, 9]
         ]
-        expect(reusableSudokuChecker.makeSudoku()).toEqual(expectedArray);
-    });
-    it('should pass', function() {
-        expect(1).toEqual(1);
+        expect(reusableSudokuChecker.boardFormat).toEqual(expectedArray);
     });
     
 })
