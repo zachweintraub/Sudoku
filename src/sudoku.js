@@ -20,7 +20,6 @@ export class Sudoku {
       }
         const goal = 45;
         let sudoku = this.boardFormat;
-      console.log(sudoku);
       for(let i = 0; i<9; i++){
           if(sudoku[i].reduce(getSum) != goal){
             return false;
@@ -52,6 +51,7 @@ export class Sudoku {
 
     //check whether a given number already exists within the same row, column, and block
     moveChecker(num, yCoord, xCoord) {
+      let boardFormat = this.boardFormat;
       if(num.isNan()){
         return false;
       }
