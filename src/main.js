@@ -29,7 +29,7 @@ function getSolution(string){
 function populateBoard(string){
     for(let i = 1; i < 82; i++){
         let selector = "#" + i;
-        $(selector).val =  string[i-1];
+        $(selector).attr('value', string[i-1]);
     }
 }
 

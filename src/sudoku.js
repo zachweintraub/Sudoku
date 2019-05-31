@@ -50,19 +50,21 @@ export class Sudoku {
 
   //check whether a given number already exists within the same row, column, and block
   moveChecker(num, yCoord, xCoord) {
-    let boardFormat = this.makeSudoku(this.allNums);
+    let boardFormat = this.makeSudoku();
     if(isNaN(num)){
       return false;
     }
     //check the row
     for(let i = 0; i < 9; i++){
       if(boardFormat[yCoord][i] == num && i != xCoord){
+        console.log("nope");
         return false;
       }
     }
     //check the column
     for(let i = 0; i < 9; i++){
       if(boardFormat[i][xCoord] == num && i != yCoord){
+        console.log("nope");
         return false;
       }
     }
@@ -71,9 +73,11 @@ export class Sudoku {
     if(yCoord < 3){
       //left block
       if(xCoord < 3){
+        console.log("top row left block");
         for(let i = 0; i < 3; i++){
           for(let j = 0; j < 3; j++){
             if(boardFormat[i][j] == num && yCoord != i && xCoord != j){
+              console.log("nope");
               return false;
             }
           }
@@ -81,9 +85,11 @@ export class Sudoku {
       }
       //middle block
       if(xCoord > 2 && xCoord < 6){
+        console.log("top row middle block");
         for(let i = 0; i < 3; i++){
           for(let j = 3; j < 6; j++){
             if(boardFormat[i][j] == num && yCoord != i && xCoord != j){
+              console.log("nope");
               return false;
             }
           }
@@ -91,9 +97,11 @@ export class Sudoku {
       }
       //right block
       if(xCoord > 5){
+        console.log("top row right block");
         for(let i = 0; i < 3; i++){
           for(let j = 6; j < 9; j++){
             if(boardFormat[i][j] == num && yCoord != i && xCoord != j){
+              console.log("nope");
               return false;
             }
           }
@@ -175,7 +183,7 @@ export class Sudoku {
     let fillBlank = (x, y) => {
       let move = false;
       let testNum = sudoku[y][x] + 1;
-      while(!move && testNum < 10){
+      while(move == false && testNum <= 9){
         move = this.moveChecker(testNum, y, x);
         if(!move){
           testNum++;
@@ -198,12 +206,14 @@ export class Sudoku {
       return zeros;
     }
     let allNums = this.allNums;
-    let sudoku = this.makeSudoku(allNums);
+    let sudoku = this.makeSudoku();
     let zeros = getBlanks(allNums);
     let i = 0;
+    console.log(sudoku);
+    console.log(zeros);
     while(i < zeros.length && i > -1){
       let fillNum = fillBlank(zeros[i].x, zeros[i].y);
-      if(fillNum < 10){
+      if(fillNum <= 9){
         sudoku[zeros[i].y][zeros[i].x] = fillNum;
         i++;
       } else {
@@ -217,7 +227,7 @@ export class Sudoku {
     if(solvedSudoku.sudokuChecker()){
       return output;
     } else {
-      return false;
+      return output;
     }
   }
 }
