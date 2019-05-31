@@ -8,8 +8,6 @@ function compileString(){
     let string = "";
     for(let i = 1; i < 82; i++){
         let selector = "#"+i;
-        console.log(selector);
-        console.log($(selector).val());
         if($(selector).val()==''){
             string += "0";
         } else {
@@ -37,7 +35,15 @@ function populateBoard(string){
 $(function(){
     $('#formOne').submit(function(e){
         e.preventDefault();
-        populateBoard(getSolution(compileString()));
+        let start = new Date().getTime();
+        let solution = getSolution(compileString());
+        if(!solution){
+            $('#error').show();
+        } else {
+            populateBoard(solution);
+            $('#runtime').text(new Date().getTime() - start);
+            $('#outcome').show();
+        }
 
         
     })

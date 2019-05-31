@@ -39,3 +39,11 @@ margin: 0;
 input:focus {
 outline-width: 0;
 }
+
+#outcome {
+  display: none;
+}
+
+#error {
+  display: none;
+}
