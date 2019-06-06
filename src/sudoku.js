@@ -1,3 +1,5 @@
+// import $ from 'jquery';
+
 export class Sudoku {
   constructor(string) {
       this.allNums = new String(string);
@@ -170,6 +172,23 @@ export class Sudoku {
     return true;
   }
 
+  //verify user input before solving
+  verifyInput(){
+    for(let i = 0; i < this.boardFormat.length; i++) {
+      for(let j = 0; j < this.boardFormat[i].length; j++) {
+        if(this.boardFormat[i][j] != 0) {
+          if(isNaN(this.boardFormat[i][j])) {
+            return false;
+          }
+          else if(!this.moveChecker(this.boardFormat[i][j], i, j)) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  }
+
   solveSudoku(){
 
     //generates a possible correct number for a given field
@@ -198,21 +217,40 @@ export class Sudoku {
       }
       return zeros;
     }
+    
     let allNums = this.allNums;
     let zeros = getBlanks(allNums);
     let i = 0;
-    console.log(zeros);
+    // let selector = "";
     while(i < zeros.length && i > -1){
       let fillNum = fillBlank(zeros[i].x, zeros[i].y);
+      // selector = "#" + ((zeros[i].y * zeros[i].y) + 1);
       if(fillNum <= 9){
         this.boardFormat[zeros[i].y][zeros[i].x] = fillNum;
         i++;
+        // $(selector).val(fillNum);
       } else {
         this.boardFormat[zeros[i].y][zeros[i].x] = 0;
         i--;
+        // $(selector).val('');
       }
-      console.log(i);
     }
+    // setInterval(() => {
+    //   let fillNum = fillBlank(zeros[i].x, zeros[i].y);
+    //   selector = "#" + ((zeros[i].y * zeros[i].y) + 1);
+    //   if(fillNum <= 9){
+    //     this.boardFormat[zeros[i].y][zeros[i].x] = fillNum;
+    //     i++;
+    //     $(selector).val(fillNum);
+    //   } else {
+    //     this.boardFormat[zeros[i].y][zeros[i].x] = 0;
+    //     i--;
+    //     $(selector).val('');
+    //   }
+    //   if(i < zeros.length && i > -1){
+    //     clearInterval();
+    //   }
+    // }, 50);
     let output = this.boardFormat.flat().join('');
     let solvedSudoku = new Sudoku(output);
     if(solvedSudoku.sudokuChecker()){

@@ -40,10 +40,6 @@ input:focus {
 outline-width: 0;
 }
 
-#outcome {
-  display: none;
-}
-
-#error {
+#outcome, #error, #invalid {
   display: none;
 }

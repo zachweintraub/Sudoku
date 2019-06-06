@@ -18,6 +18,11 @@ function compileString(){
     return string;
 }
 
+function validateInput(string) {
+    let thisSudoku = new Sudoku(string);
+    return thisSudoku.verifyInput();
+}
+
 function getSolution(string){
     let thisSudoku = new Sudoku(string);
     let solution = thisSudoku.solveSudoku();
@@ -27,7 +32,16 @@ function getSolution(string){
 function populateBoard(string){
     for(let i = 1; i < 82; i++){
         let selector = "#" + i;
-        $(selector).attr('value', string[i-1]);
+        $(selector).val(string[i-1]);
+    }
+}
+
+function clearBoard(){
+    console.log('i am clearing');
+    $('input').val('');
+    for(let i = 1; i < 82; i++){
+        let selector = "#" + i;
+        $(selector).attr('value', '');
     }
 }
 
@@ -35,19 +49,30 @@ function populateBoard(string){
 $(function(){
     $('#formOne').submit(function(e){
         e.preventDefault();
+        $('#error').hide();
+        $('#outcome').hide();
+        $('#invalid').hide();
         let start = new Date().getTime();
-        let solution = getSolution(compileString());
-        if(!solution){
-            $('#error').show();
+        if(!validateInput(compileString())) {
+            $('#invalid').show();
         } else {
-            populateBoard(solution);
-            $('#runtime').text(new Date().getTime() - start);
-            $('#outcome').show();
+            let solution = getSolution(compileString());
+            if(!solution){
+                $('#error').show();
+            } else {
+                populateBoard(solution);
+                $('#runtime').text(new Date().getTime() - start);
+                $('#outcome').show();
+            }
         }
-
         
+    });
+
+    $('#clearButton').click(function(){
+        $('#error').hide();
+        $('#outcome').hide();
+        $('#invalid').hide();
+        clearBoard();
     })
-
-
 
 });

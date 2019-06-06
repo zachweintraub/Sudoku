@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Sudoku Cheater</title>
 </head>
 <body>
     <h2>Sudoku Cheater</h2>
     <p id="outcome">Piece of cake, I solved that one in <span id="runtime"></span> milliseconds!</p>
     <p id="error">Hm, I don't think this one is possible.</p>
+    <p id="invalid">Seems weird...please ensure that you've input a valid puzzle.</p>
     <form id="formOne">
     <div class="container">
           <div class="wrapper">
@@ -97,6 +98,7 @@
           </div><br>
             <button type="submit" >Submit</button>
         </div>
-    </form> 
+    </form>
+    <button id="clearButton">Clear Board</button>
 </body>
 </html>
