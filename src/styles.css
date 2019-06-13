@@ -9,7 +9,7 @@ text-align: center;
 .wrapper {
 width: 600px;
 display: grid;
-grid-gap: 2px;
+/* grid-gap: 2px; */
 grid-template-columns: repeat(9, 70px);
 /* grid-template-rows: repeat(9, 70px); */
 /* grid-auto-flow: column; */
@@ -24,9 +24,9 @@ text-align: center;
 
 .box {
 background-color: white;
-border-radius: 5px;
 padding: 20px;
 font-size: 150%;
+border: dashed #7FDBFF 1px;
 }
 
 input {
@@ -42,4 +42,20 @@ outline-width: 0;
 
 #outcome, #error, #invalid {
   display: none;
+}
+
+#box1, #box2, #box3, #box4, #box5, #box6, #box7, #box8, #box9, #box28, #box29, #box30, #box31, #box32, #box33, #box34, #box35, #box36, #box55, #box56, #box57, #box58, #box59, #box60, #box61, #box62, #box63 {
+  border-top: solid #7FDBFF 5px;
+}
+
+#box1, #box10, #box19, #box28, #box37, #box46, #box55, #box64, #box73, #box4, #box13, #box22, #box31, #box40, #box49, #box58, #box67, #box76, #box7, #box16, #box25, #box34, #box43, #box52, #box61, #box70, #box79 {
+  border-left: solid #7FDBFF 5px;
+}
+
+#box73, #box74, #box75, #box76, #box77, #box78, #box79, #box80, #box81 {
+  border-bottom: solid #7FDBFF 5px;
+}
+
+#box9, #box18, #box27, #box36, #box45, #box54, #box63, #box72, #box81 {
+  border-right: solid #7FDBFF 5px;
 }

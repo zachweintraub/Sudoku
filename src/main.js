@@ -1,8 +1,12 @@
-import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap';
 import './styles.css';
 import $ from 'jquery';
 import { Sudoku } from './../src/sudoku.js';
+import { puzzles } from './../src/puzzles';
+
+
+console.log(puzzles.medium);
 
 function compileString(){
     let string = "";
@@ -32,7 +36,11 @@ function getSolution(string){
 function populateBoard(string){
     for(let i = 1; i < 82; i++){
         let selector = "#" + i;
-        $(selector).val(string[i-1]);
+        if(string[i-1] == 0) {
+            $(selector).val("");
+        } else {
+            $(selector).val(string[i-1]);
+        }
     }
 }
 
@@ -69,10 +77,27 @@ $(function(){
     });
 
     $('#clearButton').click(function(){
+        $('input').css('color', 'black');
         $('#error').hide();
         $('#outcome').hide();
         $('#invalid').hide();
         clearBoard();
-    })
+    });
 
+    $('#addEasy').click(function(){
+        $('input').css('color', 'green');
+        populateBoard(puzzles.easy[Math.floor(Math.random()*puzzles.easy.length)]);
+    });
+    $('#addMedium').click(function(){
+        $('input').css('color', 'orange');
+        populateBoard(puzzles.medium[Math.floor(Math.random()*puzzles.medium.length)]);
+    });
+    $('#addHard').click(function(){
+        $('input').css('color', 'red');
+        populateBoard(puzzles.hard[Math.floor(Math.random()*puzzles.hard.length)]);
+    });
+    $('#addEvil').click(function(){
+        $('input').css('color', 'purple');
+        populateBoard(puzzles.evil[Math.floor(Math.random()*puzzles.evil.length)]);
+    });
 });
